@@ -15,12 +15,11 @@ npm install --save sics
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'sics'
-import 'sics/dist/index.css'
+import {CouponsPage} from 'sics'
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <CouponsPage />
   }
 }
 ```
