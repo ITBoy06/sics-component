@@ -1,0 +1,30 @@
+@import '../../../../../assets/styles/global';
+@import '../../../../../assets/styles/colors';
+
+.container {
+  position: relative;
+  $size: 60px;
+  height: $size;
+  width: $size;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  box-shadow: 0px 0px 3px 1px rgba(187,182,182,0.71);
+  -webkit-box-shadow: 0px 0px 3px 1px rgba(187,182,182,0.71);
+  -moz-box-shadow: 0px 0px 3px 1px rgba(187,182,182,0.71);
+  border-radius: 10px;
+
+  & > svg {
+    $imageSize: 40px;
+    height: $imageSize;
+    width: $imageSize;
+    fill: $grey;
+  }
+
+  & > .image {
+    @include fill-parent;
+    border-radius: 10px;
+  }
+
+}
+

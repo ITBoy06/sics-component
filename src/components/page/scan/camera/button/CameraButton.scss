@@ -1,0 +1,17 @@
+@import '../../../../../assets/styles/colors';
+
+.container {
+  $size: 50px;
+  height: $size;
+  width:$size;
+  border: 1px solid $white;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  border-radius: $size/2;
+
+  & > svg {
+    height: 0.6 * $size;
+    fill: $white;
+  }
+}

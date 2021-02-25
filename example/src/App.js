@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { CouponsPage, PopUp } from 'sics'
+import { ScanPage, PopUp } from 'sics'
 import 'sics/dist/index.css'
 
 const App = () => {
@@ -36,11 +36,10 @@ const App = () => {
     return (
         <React.Fragment>
             <PopUp />
-            <CouponsPage
+            <ScanPage
                 onLeftArrowClicked={() => console.log('LeftArrow clicked')}
-                onNextClicked={() => console.log('next button was clicked')}
-                onGoBackHomeClicked={() =>
-                    console.log('should return to home page')
+                onReceiptValidated={() =>
+                    console.log('The receipt was validated')
                 }
             />
         </React.Fragment>

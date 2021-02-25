@@ -1,15 +1,39 @@
+@import './colors';
+
 $verticalPadding: 5vh;
 $horizontalPadding: 4vw;
 
-.page {
+@mixin fill-parent {
   position: absolute;
   top: 0;
   left: 0;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
+}
+
+@mixin full-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 95vh;
   width: 100vw;
+}
+
+@mixin bottomCameraContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 120px;
+  width: 100%;
+  background-color: black;
+}
+
+.page {
+  @include full-screen;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
 }
+

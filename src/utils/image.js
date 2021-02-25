@@ -1,3 +1,16 @@
+export const getImageFromVideoTag = () => {
+    const video = document.getElementById('camera-video')
+    const canvas = document.createElement('canvas')
+
+    canvas.width = video.videoWidth
+    canvas.height = video.videoHeight
+
+    const context = canvas.getContext('2d')
+    context.drawImage(video, 0, 0)
+
+    return canvas.toDataURL()
+}
+
 export const base64ToBlob = (b64Data, contentType, sliceSize) => {
     contentType = contentType || ''
     sliceSize = sliceSize || 512
