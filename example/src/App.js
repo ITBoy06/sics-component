@@ -1,19 +1,50 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-import { CouponSection } from 'sics'
+import { CouponsPage, PopUp } from 'sics'
 import 'sics/dist/index.css'
 
 const App = () => {
-  return (
-    <CouponSection
-      onToggle={() => console.log('toggle status changed')}
-      onButtonClicked={() => console.log('button was clicked')}
-      coupon={{
-        id: 'cp_20983557445',
-        coupon_val: 50
-      }}
-    />
-  )
+    useEffect(() => {
+        const items = {
+            'cc_62ec294d-5fa8-454d-ac78-1e83cca06c93': {
+                id: 'cc_62ec294d-5fa8-454d-ac78-1e83cca06c93',
+                product_name: 'Mozzarella',
+                receipt_product_name: 'CFR YOPLAIT CREME',
+                brand_name: 'Galbani',
+                image_src:
+                    'https://cdn.monoprix.fr/cdn-cgi/image/width=580,quality=75,format=auto,metadata=none/assets/images/grocery/3032567/580x580.jpg',
+                coupon_value: 50,
+                token:
+                    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjoiZGF0YSJ9.KAxu7OyOPNANLNQBl0mq2Un_0QY3dYw3H4yV2CYzZDM'
+            },
+            'cc_62ec294d-5fa8-454d-ac78-1e83cca0994328': {
+                id: 'cc_62ec294d-5fa8-454d-ac78-1e83cca0994328',
+                product_name: 'Spécialité de saucisson sec',
+                receipt_product_name: 'ACTIVIA NATURE',
+                brand_name: 'Monoprix',
+                image_src:
+                    'https://cdn.monoprix.fr/cdn-cgi/image/width=580,quality=75,format=auto,metadata=none/assets/images/grocery/2223027/580x580.jpg',
+                coupon_value: 50,
+                token:
+                    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjoiZGF0YSJ9.KAxu7OyOPNANLNQBl0mq2Un_0QY3dYw3H4yV2CYzZDM'
+            }
+        }
+
+        window.localStorage.setItem('sics-items', JSON.stringify(items))
+    }, [])
+
+    return (
+        <React.Fragment>
+            <PopUp />
+            <CouponsPage
+                onLeftArrowClicked={() => console.log('LeftArrow clicked')}
+                onNextClicked={() => console.log('next button was clicked')}
+                onGoBackHomeClicked={() =>
+                    console.log('should return to home page')
+                }
+            />
+        </React.Fragment>
+    )
 }
 
 export default App

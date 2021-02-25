@@ -1,0 +1,23 @@
+@import '../../../../../assets/styles/colors';
+
+.container {
+  $size: 25px;
+  height: $size;
+  width: $size;
+  background-color: $red;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  border-radius: $size/2;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(25%, -25%);
+
+  & > svg {
+    $sizeSvg: 0.5 * $size;
+    height: $sizeSvg;
+    width: $sizeSvg;
+    fill: $white;
+  }
+}

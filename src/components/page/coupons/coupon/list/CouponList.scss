@@ -1,0 +1,17 @@
+@import '../../../../../assets/styles/colors';
+
+.list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-between;
+  margin: 40px 0;
+}
+
+.arrow, .disabledArrow {
+  height: 30px;
+}
+
+.disabledArrow {
+  fill: $grey
+}
