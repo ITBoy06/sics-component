@@ -1,0 +1,28 @@
+.container {
+  width: 100%;
+  background-color:red;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #ffffff;
+  border: 2px solid #e3e3e3;
+}
+
+.text {
+  width: 70%;
+}
+
+.toggleZone {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}

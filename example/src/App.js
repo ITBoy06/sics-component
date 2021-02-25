@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
-import { PopUp } from 'sics'
+import { CouponSection } from 'sics'
 import 'sics/dist/index.css'
 
 const App = () => {
-  useEffect(() => {
-    PopUp.instance.setContent(
-      <>
-        <div>Hello</div>
-        <div>Salut</div>
-      </>
-    )
-  }, [])
-
-  return <PopUp />
+  return (
+    <CouponSection
+      onToggle={() => console.log('toggle status changed')}
+      onButtonClicked={() => console.log('button was clicked')}
+      coupon={{
+        id: 'cp_20983557445',
+        coupon_val: 50
+      }}
+    />
+  )
 }
 
 export default App

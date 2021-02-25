@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import styles from './Toggle.scss'
 
 const Toggle = (props) => {
-  const [active, setActive] = useState(false)
+  const [active, setActive] = useState(!!props.defaultChecked)
 
   const handleCircleClicked = () => {
     props.onStatusChanged(!active)
@@ -20,7 +20,8 @@ const Toggle = (props) => {
 }
 
 Toggle.propTypes = {
-  onStatusChanged: PropTypes.func.isRequired
+  onStatusChanged: PropTypes.func.isRequired,
+  defaultChecked: PropTypes.bool
 }
 
 export default Toggle
