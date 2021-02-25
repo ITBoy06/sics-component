@@ -1,0 +1,15 @@
+$verticalPadding: 5vh;
+$horizontalPadding: 4vw;
+
+.page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+}

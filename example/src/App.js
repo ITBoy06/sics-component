@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-import { ExampleComponent } from 'sics'
+import { PopUp } from 'sics'
 import 'sics/dist/index.css'
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  useEffect(() => {
+    PopUp.instance.setContent(
+      <>
+        <div>Hello</div>
+        <div>Salut</div>
+      </>
+    )
+  }, [])
+
+  return <PopUp />
 }
 
 export default App

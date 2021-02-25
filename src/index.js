@@ -1,6 +1,5 @@
-import React from 'react'
-import styles from './styles.module.css'
+import CouponsPageComp from './components/page/coupons/CouponsPage'
+import PopUpComp from './components/generic/pop-up/PopUp'
 
-export const ExampleComponent = ({ text }) => {
-  return <div className={styles.test}>Example Component: {text}</div>
-}
+export const CouponsPage = CouponsPageComp
+export const PopUp = PopUpComp

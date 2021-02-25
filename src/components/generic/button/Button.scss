@@ -1,0 +1,17 @@
+@import '../../../assets/styles/colors';
+
+.container, .containerDisabled {
+  width: 100%;
+  height: 45px;
+  background-color: $black;
+  font-weight: bold;
+  color: $white;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.containerDisabled {
+  background-color: $grey
+}

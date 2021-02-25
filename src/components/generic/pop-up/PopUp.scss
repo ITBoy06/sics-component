@@ -1,0 +1,43 @@
+@import '../../../assets/styles/global';
+@import '../../../assets/styles/colors';
+
+.page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: stretch;
+  padding: 0 $horizontalPadding;
+}
+
+.container {
+  box-sizing: border-box;
+  position: relative;
+  background-color: rgba($black, 0.9);
+  min-height: 90px;
+  max-height: 300px;
+  width: 100%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+
+  & > * {
+    color: $white;
+  }
+}
+
+.cross {
+  $size: 14px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  fill: $white;
+  height: $size;
+  width: $size;
+}

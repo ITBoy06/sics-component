@@ -1,0 +1,16 @@
+@import '../../../../assets/styles/global';
+@import '../../../../assets/styles/colors';
+
+.container {
+  padding: 0 $horizontalPadding;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+
+  & > div[class*='Button'] {
+    background-color: $green;
+    margin-bottom: 5vh;
+  }
+}
