@@ -13,7 +13,7 @@ const CameraPreview = (props) => {
                 alt='picture-taken'
             />
             <div className={styles.container}>
-                <span onClick={props.onCancel}>Annuler</span>
+                <span onClick={props.onRetake}>Reprendre</span>
                 <span onClick={props.onPictureValidated}>Valider</span>
             </div>
         </React.Fragment>
@@ -22,7 +22,7 @@ const CameraPreview = (props) => {
 
 CameraPreview.propTypes = {
     onPictureValidated: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
+    onRetake: PropTypes.func.isRequired,
     image: PropTypes.string.isRequired
 }
 

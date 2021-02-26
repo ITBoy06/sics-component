@@ -35,17 +35,15 @@ class OcrServer extends Server {
         this.base_url = 'https://ocr.eu.ngrok.io/api/ocr/'
     }
 
-    async getIdentifiedItemsFromServer(items, itemsImage) {
+    async getIdentifiedItemsFromServer(items) {
         const bodyFormData = new FormData()
 
-        for (const cp_id of Object.keys(itemsImage)) {
-            const block = itemsImage[cp_id].split(';')
+        for (const cp_id of Object.keys(items)) {
+            const block = items[cp_id]['receipt_img'].split(';')
             const contentType = block[0].split(':')[1]
             const realData = block[1].split(',')[1]
 
             const blob = base64ToBlob(realData, contentType)
-
-            console.log(items[cp_id])
 
             bodyFormData.append(`${cp_id}-image`, blob)
             bodyFormData.append(

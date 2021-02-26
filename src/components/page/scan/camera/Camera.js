@@ -24,7 +24,7 @@ const Camera = (props) => {
                     onPictureValidated={() =>
                         props.onPictureTaken(imageContent)
                     }
-                    onCancel={props.onCancel}
+                    onRetake={() => setImageContent(null)}
                     image={imageContent}
                 />
             )
@@ -35,7 +35,6 @@ const Camera = (props) => {
 }
 
 Camera.propTypes = {
-    onCancel: PropTypes.func.isRequired,
     onPictureTaken: PropTypes.func.isRequired
 }
 

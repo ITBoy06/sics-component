@@ -1,0 +1,15 @@
+@import '../../../assets/styles/global';
+
+.container {
+  @include full-screen;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  z-index:10;
+}
+
+.image {
+  $size: 80px;
+  height: $size;
+  width: $size;
+}

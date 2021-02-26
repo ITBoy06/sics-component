@@ -9,12 +9,13 @@ import CameraBox from '../box/CameraBox'
 
 const CameraList = (props) => {
     const renderBoxes = () => {
-        return props.items.map((item, index) => {
+        return props.itemsNotIdentified.map((id) => {
             return (
                 <CameraBox
-                    key={item.id}
-                    onBoxClicked={() => props.onBoxClicked(item.id)}
-                    image={item.receipt_img}
+                    key={id}
+                    onTakePictureClicked={() => props.onBoxClicked(id)}
+                    image={props.items[id].receipt_img}
+                    product_image={props.items[id].image_src}
                 />
             )
         })
@@ -24,7 +25,8 @@ const CameraList = (props) => {
 
 CameraList.propTypes = {
     onBoxClicked: PropTypes.func.isRequired,
-    items: PropTypes.array.isRequired
+    items: PropTypes.object.isRequired,
+    itemsNotIdentified: PropTypes.array.isRequired
 }
 
 export default CameraList

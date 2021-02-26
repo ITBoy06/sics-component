@@ -21,7 +21,7 @@
   background-color: rgba($black, 0.95);
   text-align: center;
   min-height: 90px;
-  max-height: 300px;
+  max-height: 600px;
   width: 100%;
   border-radius: 10px;
   display: flex;
@@ -43,6 +43,20 @@
       color: $black;
       margin: 10px 20px;
     }
+  }
+
+  & > svg[class*='illustration'] {
+    height: 90px;
+  }
+
+  & > img {
+    height: 110px;
+  }
+
+  & > div[class*='Button'] {
+    height: 40px !important;
+    background-color: $white;
+    color: $black;
   }
 }
 

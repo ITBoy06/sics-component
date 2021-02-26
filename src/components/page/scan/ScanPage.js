@@ -1,19 +1,28 @@
 import React, { useReducer, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import * as _ from 'lodash'
 
 // StyleSheet
 import global from '../../../assets/styles/global.scss'
 
+// Utils
+import { ocrServer } from '../../../utils/api'
+
 // Hooks
 import { useStorage } from '../../../hooks/storage'
 
+// Assets
+import { ReactComponent as SadFace } from '../../../assets/images/sad.svg'
+
 // Components
+import PopUp from '../../generic/pop-up/PopUp'
 import Header from '../../generic/header/Header'
 import PageContent from '../../generic/page/content/PageContent'
 import CameraList from './camera/list/CameraList'
 import Camera from './camera/Camera'
 import Spacer from '../../generic/spacer/Spacer'
 import Button from '../../generic/button/Button'
+import Spinner from '../../generic/spinner/Spinner'
 
 // Reducer
 const initialState = {
@@ -21,6 +30,7 @@ const initialState = {
     showSpinner: false,
     showCamera: false,
     coupons: {},
+    itemsNotIdentified: [],
     boxSelected: -1
 }
 
@@ -30,12 +40,15 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 initialisation: false,
-                coupons: action.payload
+                coupons: action.payload,
+                itemsNotIdentified: Object.keys(action.payload)
             }
         case 'boxClicked':
             return { ...state, showCamera: true, boxSelected: action.payload }
         case 'closeCamera':
             return { ...state, showCamera: false }
+        case 'hideSpinner':
+            return { ...state, showSpinner: false }
         case 'addPicture':
             return {
                 ...state,
@@ -48,6 +61,21 @@ const reducer = (state, action) => {
                 },
                 showCamera: false,
                 boxSelected: -1
+            }
+        case 'queryingServer':
+            return { ...state, showSpinner: true }
+
+        case 'updateItemsNotIdentified':
+            let newCouponsObj = { ...state.coupons }
+
+            for (let id of action.payload) {
+                newCouponsObj[id].receipt_img = null
+            }
+
+            return {
+                ...state,
+                itemsNotIdentified: action.payload,
+                coupons: newCouponsObj
             }
         default:
             throw new Error()
@@ -79,6 +107,67 @@ const ScanPage = (props) => {
         return true
     }
 
+    const handleMisidentifiedItems = () => {
+        PopUp.instance.setContent(
+            <React.Fragment>
+                <SadFace className='illustration' />
+                <p>
+                    Nous avons eu du mal à identifier certains articles...
+                    Assurez vous de ne pas avoir oublié de retirer un coupon
+                    pour un article que vous n'auriez pas acheté. Si ce n'est
+                    pas le cas, il se peut que la photo prise contienne un léger
+                    flou qui ne nous permet pas de la traiter.
+                    <br />
+                    <br />
+                    Pourriez vous reprendre en photo les articles concernés s'il
+                    vous plait ?
+                </p>
+                <Button onClick={() => PopUp.instance.hide()}>D'accord</Button>
+            </React.Fragment>
+        )
+    }
+
+    const handleButtonClicked = async () => {
+        // Displaying spinner
+        dispatch({ type: 'queryingServer' })
+
+        // Get data identified
+        const dataIdentified = await ocrServer.getIdentifiedItemsFromServer(
+            state.coupons
+        )
+
+        const newItemsNotIdentified = _.difference(
+            state.itemsNotIdentified,
+            dataIdentified
+        )
+
+        // Hiding spinner
+        dispatch({ type: 'hideSpinner' })
+
+        console.log('test items')
+        console.log(newItemsNotIdentified)
+
+        // Checking if we found all the items
+        if (newItemsNotIdentified.length === 0) {
+            props.onReceiptValidated()
+            return
+        }
+
+        // Displaying error message to the user
+        handleMisidentifiedItems()
+
+        // Checking if there was no change
+        if (newItemsNotIdentified.length === state.itemsNotIdentified.length) {
+            return
+        }
+
+        // Updating the state
+        dispatch({
+            type: 'updateItemsNotIdentified',
+            payload: newItemsNotIdentified
+        })
+    }
+
     if (state.initialisation) return null
 
     if (state.showCamera)
@@ -87,14 +176,12 @@ const ScanPage = (props) => {
                 onPictureTaken={(image) =>
                     dispatch({ type: 'addPicture', payload: image })
                 }
-                onCancel={() =>
-                    dispatch({ type: 'closeCamera', payload: null })
-                }
             />
         )
 
     return (
         <div className={global.page}>
+            {state.showSpinner ? <Spinner /> : null}
             <Header
                 onLeftIconClicked={props.onLeftArrowClicked}
                 title='Vérification des achats'
@@ -115,11 +202,12 @@ const ScanPage = (props) => {
                     onBoxClicked={(couponId) =>
                         dispatch({ type: 'boxClicked', payload: couponId })
                     }
-                    items={Object.values(state.coupons)}
+                    items={state.coupons}
+                    itemsNotIdentified={state.itemsNotIdentified}
                 />
                 <Spacer />
                 <Button
-                    onClick={() => console.log('Hello')}
+                    onClick={handleButtonClicked}
                     disabled={!checkPicturesNumber()}
                 >
                     Valider mes photos
