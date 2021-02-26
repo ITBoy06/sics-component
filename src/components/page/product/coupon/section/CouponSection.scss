@@ -1,9 +1,17 @@
+@import '../../../../../assets/styles/colors';
+
 .container {
   width: 100%;
-  background-color:red;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+
+  &  div[class*='Button'] {
+    width: 95%;
+    margin-top: 10px;
+    background-color: $green;
+  }
 }
 
 .section {
@@ -17,6 +25,7 @@
 
 .text {
   width: 70%;
+  font-size: 0.9rem;
 }
 
 .toggleZone {
@@ -25,4 +34,7 @@
   justify-content: space-between;
   align-items: center;
   text-align: center;
+  font-size: 0.8rem;
 }
+
+
