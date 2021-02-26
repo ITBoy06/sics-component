@@ -15,7 +15,7 @@ const CouponCard = (props) => {
             <div className={styles.textContent}>
                 <span>coupon</span>
                 <span className='coupon_value'>
-                    {(props.couponObj.coupon_value / 100).toPrecision(2)} €
+                    {(props.couponObj.coupon_val / 100).toPrecision(2)} €
                 </span>
                 <span className='product_name'>
                     {props.couponObj.product_name}

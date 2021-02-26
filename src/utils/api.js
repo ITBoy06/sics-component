@@ -13,7 +13,7 @@ class Server {
 class CouponServer extends Server {
     constructor() {
         super()
-        this.base_url = 'http://34a693b65be3.ngrok.io/api/campaign'
+        this.base_url = 'https://coupons.eu.ngrok.io/api/campaign'
     }
 
     increaseNumberBeneficiariesForCampaign(campaign_id) {

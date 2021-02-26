@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 
-import { CouponSection, PopUp } from 'sics'
+import { CouponsPage, PopUp } from 'sics'
 import 'sics/dist/index.css'
 
 const App = () => {
     const [items, setItems] = useState(null)
     useEffect(() => {
         const itemsS = {
-            'cc_62ec294d-5fa8-454d-ac78-1e83cca06c93': {
-                id: 'cc_62ec294d-5fa8-454d-ac78-1e83cca06c93',
+            cc_regerg54546: {
+                id: 'cc_regerg54546',
                 product_name: 'Mozzarella',
                 receipt_product_name: 'RAVIOLES DU DAUPHI',
                 brand_name: 'Galbani',
@@ -16,10 +16,10 @@ const App = () => {
                     'https://cdn.monoprix.fr/cdn-cgi/image/width=580,quality=75,format=auto,metadata=none/assets/images/grocery/3032567/580x580.jpg',
                 coupon_val: 50,
                 token:
-                    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjoiZGF0YSJ9.KAxu7OyOPNANLNQBl0mq2Un_0QY3dYw3H4yV2CYzZDM'
+                    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjY19pZCI6ImNjX3JlZ2VyZzU0NTQ2In0.aWr1ghK6P_0GgW17WXKzcQh-reKlsX0J183W3m9BjI0'
             },
-            'cc_62ec294d-5fa8-454d-ac78-1e83cca0994328': {
-                id: 'cc_62ec294d-5fa8-454d-ac78-1e83cca0994328',
+            cc_grzgre4545454: {
+                id: 'cc_grzgre4545454',
                 product_name: 'Spécialité de saucisson sec',
                 receipt_product_name: 'POMELO CHINOIS',
                 brand_name: 'Monoprix',
@@ -27,13 +27,13 @@ const App = () => {
                     'https://cdn.monoprix.fr/cdn-cgi/image/width=580,quality=75,format=auto,metadata=none/assets/images/grocery/2223027/580x580.jpg',
                 coupon_val: 50,
                 token:
-                    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjoiZGF0YSJ9.KAxu7OyOPNANLNQBl0mq2Un_0QY3dYw3H4yV2CYzZDM'
+                    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjY19pZCI6ImNjX2dyemdyZTQ1NDU0NTQifQ.w2AU4LjPaXCSAllBDDSeHZkO1OMiw4DpJF2ngSAbi4w'
             }
         }
 
         setItems(itemsS)
 
-        window.localStorage.setItem('sics-items', JSON.stringify(items))
+        window.localStorage.setItem('sics-items', JSON.stringify(itemsS))
     }, [])
 
     if (!items) return null
@@ -41,10 +41,10 @@ const App = () => {
     return (
         <React.Fragment>
             <PopUp />
-            <CouponSection
-                onButtonClicked={() => console.log('button was clicked')}
-                onToggle={(test) => console.log('status changed')}
-                coupon={Object.values(items)[0]}
+            <CouponsPage
+                onLeftArrowClicked={() => console.log('ef')}
+                onGoBackHomeClicked={() => console.log('')}
+                onNextClicked={() => console.log('')}
             />
         </React.Fragment>
     )

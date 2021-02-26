@@ -22,6 +22,8 @@ const CouponsPage = (props) => {
     const [fetching, coupons, actions] = useStorage()
 
     const handleRemoveCampaign = (campaign_id) => {
+        const token = coupons[campaign_id].token
+
         const newCouponObjects = { ...coupons }
         delete newCouponObjects[campaign_id]
 
@@ -29,7 +31,7 @@ const CouponsPage = (props) => {
         actions.removeCoupon(campaign_id)
 
         // Calling coupon-server to reduce the number of current beneficiaries for a specific coupon campaign
-        api.couponServer.setToken(newCouponObjects[campaign_id].token)
+        api.couponServer.setToken(token)
         api.couponServer.decreaseNumberBeneficiariesForCampaign(campaign_id)
     }
 
@@ -37,7 +39,7 @@ const CouponsPage = (props) => {
         let total = 0
 
         for (let object of Object.values(coupons)) {
-            total += object.coupon_value
+            total += object.coupon_val
         }
 
         return (
@@ -72,7 +74,7 @@ const CouponsPage = (props) => {
 
         return (
             <React.Fragment>
-                <p className='text-content'>
+                <p>
                     Vous trouverez ci-dessous la liste des produits pour
                     lesquels vous avez activé le toggle de réduction.
                     <br />
