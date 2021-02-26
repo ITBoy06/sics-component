@@ -2,10 +2,8 @@
 
 .image {
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 0;
-  width: 100%;
-  transform: translateY(-50%);
 }
 
 .container {
@@ -19,7 +17,7 @@
   flex-direction: row;
   justify-content:space-between;
   align-items: center;
-  padding: 20px;
+  padding: 35px 20px;
 
   & > span {
     color: $white;

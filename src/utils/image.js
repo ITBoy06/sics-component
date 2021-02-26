@@ -2,8 +2,8 @@ const getCanvas = () => {
     const video = document.getElementById('camera-video')
     const canvas = document.createElement('canvas')
 
-    canvas.width = video.videoWidth
-    canvas.height = video.videoHeight
+    canvas.width = window.screen.width
+    canvas.height = 0.7 * window.screen.height
 
     const context = canvas.getContext('2d')
     context.drawImage(video, 0, 0)

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { BarCodePage, PopUp } from 'sics'
+import { ScanPage, PopUp } from 'sics'
 import 'sics/dist/index.css'
 
 const App = () => {
@@ -41,14 +41,10 @@ const App = () => {
     return (
         <React.Fragment>
             <PopUp />
-            <BarCodePage
-                onReceiptNumberInvalidated={() => console.log('')}
-                onReceiptNumberValidated={() => console.log('')}
+            <ScanPage
+                onLeftArrowClicked={() => console.log('left arrow')}
+                onReceiptValidated={() => console.log('receipt validated')}
             />
-            {/*<ScanPage*/}
-            {/*    onLeftArrowClicked={() => console.log('left arrow')}*/}
-            {/*    onReceiptValidated={() => console.log('receipt validated')}*/}
-            {/*/>*/}
         </React.Fragment>
     )
 }
