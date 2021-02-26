@@ -36,7 +36,7 @@ const BarCodePage = (props) => {
         setShowSpinner(false)
 
         if (receiptAlreadyScanned) {
-            PopUp.instance.setContent(
+            PopUp.instance.setContentWithoutQuitButton(
                 <React.Fragment>
                     <RedCross className='illustration red' />
                     <p>

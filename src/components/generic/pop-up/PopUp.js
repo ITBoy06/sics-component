@@ -17,6 +17,7 @@ class PopUp extends React.Component {
         this.state = {
             popUpHidden: true,
             content: null,
+            displayQuitButton: true,
             closeCallBack: null
         }
     }
@@ -24,6 +25,15 @@ class PopUp extends React.Component {
     setContent = (content, closeCallBack = null) => {
         this.setState({
             popUpHidden: false,
+            content,
+            closeCallBack
+        })
+    }
+
+    setContentWithoutQuitButton = (content, closeCallBack = null) => {
+        this.setState({
+            popUpHidden: false,
+            displayQuitButton: false,
             content,
             closeCallBack
         })
@@ -51,10 +61,12 @@ class PopUp extends React.Component {
         return (
             <div className={styles.page}>
                 <div className={styles.container}>
-                    <Cross
-                        className={styles.cross}
-                        onClick={this.onCrossClicked}
-                    />
+                    {this.state.displayQuitButton ? (
+                        <Cross
+                            className={styles.cross}
+                            onClick={this.onCrossClicked}
+                        />
+                    ) : null}
                     {this.state.content}
                 </div>
             </div>
