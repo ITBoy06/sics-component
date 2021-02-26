@@ -2,13 +2,14 @@ import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 
 // Stylesheet
+import global from '../../../../../assets/styles/global.scss'
 import styles from './CameraReader.scss'
 
 // Hooks
 import { useUserMedia } from '../../../../../hooks/userMedia'
 
 // Utils
-import { getImageFromVideoTag } from '../../../../../utils/image'
+import { image } from '../../../../../utils/image'
 
 // Components
 import CameraButton from '../button/CameraButton'
@@ -29,7 +30,7 @@ const CameraReader = (props) => {
     }
 
     const handleButtonClicked = () => {
-        props.onPictureCaptured(getImageFromVideoTag())
+        props.onPictureCaptured(image.getImageFromVideoTag())
     }
 
     if (mediaStream && videoRef.current && !videoRef.current.srcObject) {
@@ -40,9 +41,10 @@ const CameraReader = (props) => {
         <React.Fragment>
             <video
                 id='camera-video'
-                className={styles.cameraReader}
+                className={global.camera}
                 ref={videoRef}
                 onCanPlay={handleCanPlay}
+                playsInline
             />
             <div className={styles.container}>
                 <CameraButton onButtonClicked={handleButtonClicked} />

@@ -15,7 +15,7 @@ $horizontalPadding: 4vw;
   position: absolute;
   top: 0;
   left: 0;
-  height: 95vh;
+  height: 85vh;
   width: 100vw;
 }
 
@@ -23,7 +23,7 @@ $horizontalPadding: 4vw;
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 120px;
+  height: 10vh;
   width: 100%;
   background-color: black;
 }
@@ -35,5 +35,17 @@ $horizontalPadding: 4vw;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
+}
+
+.camera {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+}
+
+svg[class*="red"] {
+  fill: $red;
 }
 

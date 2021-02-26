@@ -6,7 +6,7 @@ import global from '../../../assets/styles/global.scss'
 import styles from './CouponsPage.scss'
 
 // Utils
-import { couponServer } from '../../../utils/api'
+import { api } from '../../../utils/api'
 
 // Hooks
 import { useStorage } from '../../../hooks/storage'
@@ -29,8 +29,8 @@ const CouponsPage = (props) => {
         actions.removeCoupon(campaign_id)
 
         // Calling coupon-server to reduce the number of current beneficiaries for a specific coupon campaign
-        // couponServer.setToken(couponsObj[campaign_id].token)
-        // couponServer.decreaseNumberBeneficiariesForCampaign(campaign_id)
+        api.couponServer.setToken(newCouponObjects[campaign_id].token)
+        api.couponServer.decreaseNumberBeneficiariesForCampaign(campaign_id)
     }
 
     const renderTotalReimbursement = () => {

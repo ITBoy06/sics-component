@@ -6,7 +6,7 @@ import * as _ from 'lodash'
 import global from '../../../assets/styles/global.scss'
 
 // Utils
-import { ocrServer } from '../../../utils/api'
+import { api } from '../../../utils/api'
 
 // Hooks
 import { useStorage } from '../../../hooks/storage'
@@ -132,7 +132,7 @@ const ScanPage = (props) => {
         dispatch({ type: 'queryingServer' })
 
         // Get data identified
-        const dataIdentified = await ocrServer.getIdentifiedItemsFromServer(
+        const dataIdentified = await api.ocrServer.getIdentifiedItemsFromServer(
             state.coupons
         )
 

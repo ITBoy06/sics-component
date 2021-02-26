@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-// StyleSheet
-import styles from './Camera.scss'
-
 // Components
 import CameraReader from './reader/CameraReader'
 import CameraPreview from './preview/CameraPreview'

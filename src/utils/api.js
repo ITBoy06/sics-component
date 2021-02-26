@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { base64ToBlob } from './image'
+import { image } from './image'
 
 class Server {
     auth_token = null
@@ -43,7 +43,7 @@ class OcrServer extends Server {
             const contentType = block[0].split(':')[1]
             const realData = block[1].split(',')[1]
 
-            const blob = base64ToBlob(realData, contentType)
+            const blob = image.base64ToBlob(realData, contentType)
 
             bodyFormData.append(`${cp_id}-image`, blob)
             bodyFormData.append(
@@ -70,7 +70,7 @@ class ReceiptsServer extends Server {
     }
 
     async isReceiptAlreadyScanned(receipt_id, token) {
-        const rep = await axios.get(`${this.base_url}/${receipt_id}`, {
+        const rep = await axios.get(`${this.base_url}/rcpt_${receipt_id}`, {
             headers: {
                 Authorization: token
             }
@@ -80,6 +80,8 @@ class ReceiptsServer extends Server {
     }
 }
 
-export const couponServer = new CouponServer()
-export const ocrServer = new OcrServer()
-export const receiptServer = new ReceiptsServer()
+export const api = {
+    couponServer: new CouponServer(),
+    ocrServer: new OcrServer(),
+    receiptServer: new ReceiptsServer()
+}
