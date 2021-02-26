@@ -1,16 +1,12 @@
 @import '../../../../assets/styles/global';
 
 .container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
+  @include full-screen;
   background-color: black;
 }
 
 .corner {
-  $verticalOffset: 42vh;
+  $verticalOffset: 35vh;
   $horizontalOffset: 3vw;
   position: absolute;
 

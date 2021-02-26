@@ -39,15 +39,17 @@ const CameraReader = (props) => {
 
     return (
         <React.Fragment>
-            <video
-                id='camera-video'
-                className={global.camera}
-                ref={videoRef}
-                onCanPlay={handleCanPlay}
-                playsInline
-            />
             <div className={styles.container}>
-                <CameraButton onButtonClicked={handleButtonClicked} />
+                <video
+                    id='camera-video'
+                    ref={videoRef}
+                    className={global.camera}
+                    onCanPlay={handleCanPlay}
+                    playsInline
+                />
+                <div className={styles.bottomContainer}>
+                    <CameraButton onButtonClicked={handleButtonClicked} />
+                </div>
             </div>
         </React.Fragment>
     )

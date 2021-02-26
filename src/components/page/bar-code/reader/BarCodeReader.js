@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import Quagga from 'quagga-scanner'
 
@@ -27,14 +27,11 @@ const BarCodeReader = (props) => {
     const videoRef = useRef()
     const interval = useRef()
     const mediaStream = useUserMedia(CAPTURE_OPTIONS)
-    const [imageContent, setImageContent] = useState()
 
     useEffect(() => {
         interval.current = setInterval(() => {
             const barCodeImg = image.getBarCode()
 
-            // setImageContent(barCodeImg)
-            // return
             Quagga.decodeSingle(
                 {
                     decoder: {
@@ -68,8 +65,6 @@ const BarCodeReader = (props) => {
 
         return arr
     }
-
-    if (imageContent) return <img src={imageContent} alt='' />
 
     if (mediaStream && videoRef.current && !videoRef.current.srcObject) {
         videoRef.current.srcObject = mediaStream
