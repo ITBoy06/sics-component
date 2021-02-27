@@ -40,8 +40,12 @@ const BarCodeReader = (props) => {
                     src: barCodeImg
                 },
                 function (result) {
-                    if (result && result.codeResult && result.codeResult.code) {
-                        props.onBarCodeFound(result.codeResult.code)
+                    if (result?.codeResult?.code) {
+                        const code = result.codeResult.code
+
+                        if (code.length === 24) {
+                            props.onBarCodeFound(result.codeResult.code)
+                        }
                     }
                 }
             )
