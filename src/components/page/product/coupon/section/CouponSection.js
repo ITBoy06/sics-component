@@ -15,8 +15,12 @@ class CouponSection extends React.Component {
     constructor(props) {
         super(props)
 
+        if (!props.campaign.active) {
+            props.campaign.active = true
+        }
+
         this.state = {
-            active: this.props.campaign.active
+            active: props.campaign.active
         }
         this.componentDidMount = this.componentDidMount.bind(this)
         this.couponActivationChange = this.couponActivationChange.bind(this)

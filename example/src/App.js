@@ -41,15 +41,12 @@ class App extends React.Component {
         const campaign = storage.checkCampaignExistence(campaignId)
 
         if (campaign !== null) {
-            this.setState({ campaign })
+            this.setState({ campaign, fetchingData: false })
             return
         }
 
         // Querying the server to know whether or not we can display the coupon section
         const rep = await api.couponsServer.canDisplayCouponSection(campaignId)
-
-        console.log('test reponse')
-        console.log(rep)
 
         if (rep.display) {
             const campaign = {
@@ -66,19 +63,13 @@ class App extends React.Component {
                     name: 'Galbani'
                 },
                 coupon_val: 50,
-                currency: 'eur',
-                active: true,
-                token:
-                    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjY19pZCI6ImNjX3JlZ2VyZzU0NTQ2In0.aWr1ghK6P_0GgW17WXKzcQh-reKlsX0J183W3m9BjI0'
+                currency: 'eur'
             }
-
-            // This property is used to determine the state of the toggle
-            campaign.active = true
 
             // This is a mandatory object for lots of communications with our different servers
             campaign.token = rep.token
 
-            this.setState({ campaign })
+            this.setState({ campaign, fetchingData: false })
         }
     }
 
