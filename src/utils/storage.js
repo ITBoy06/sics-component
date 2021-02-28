@@ -24,6 +24,26 @@ const addCouponInStorage = (couponId, coupon) => {
     saveCouponsObjInStorage(newCouponsObj)
 }
 
+const checkCouponCampaignExistence = (campaignId) => {
+    const coupons = getCouponsFromStorage()
+
+    if (coupons[campaignId]) return coupons[campaignId]
+
+    return null
+}
+
+const checkCouponCampaignExistenceForProduct = (productId) => {
+    const coupons = getCouponsFromStorage()
+
+    for (const id in coupons) {
+        if (coupons[id].product.id === productId) {
+            return coupons[id]
+        }
+    }
+
+    return null
+}
+
 const saveCouponsObjInStorage = (couponsObj) => {
     window.localStorage.setItem('sics-items', JSON.stringify(couponsObj))
 }
@@ -42,5 +62,7 @@ export const storage = {
     removeCouponFromStorage,
     addCouponInStorage,
     getTokenFromCoupon,
-    deleteAllCouponsInStorage
+    deleteAllCouponsInStorage,
+    checkCouponCampaignExistenceForProduct,
+    checkCouponCampaignExistence
 }

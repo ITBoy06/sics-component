@@ -10,10 +10,17 @@ class Server {
     }
 }
 
-class CouponServer extends Server {
+class CouponsServer extends Server {
     constructor() {
         super()
         this.baseUrl = 'https://coupons.eu.ngrok.io/api/campaign'
+    }
+
+    canDisplayCouponSection(campaignId) {
+        const url = `${this.baseUrl}/${campaignId}`
+        const rep = axios.get(url)
+
+        console.log(rep)
     }
 
     increaseNumberBeneficiariesForCampaign(campaignId) {
@@ -88,7 +95,7 @@ class ReceiptsServer extends Server {
 }
 
 export const api = {
-    couponServer: new CouponServer(),
+    couponsServer: new CouponsServer(),
     ocrServer: new OcrServer(),
-    receiptServer: new ReceiptsServer()
+    receiptsServer: new ReceiptsServer()
 }
