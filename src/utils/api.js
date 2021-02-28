@@ -6,7 +6,7 @@ class Server {
     baseUrl = null
 
     setToken(token) {
-        this.auth_token = token
+        this.authToken = token
     }
 }
 
@@ -16,11 +16,11 @@ class CouponsServer extends Server {
         this.baseUrl = 'https://coupons.eu.ngrok.io/api/campaign'
     }
 
-    canDisplayCouponSection(campaignId) {
+    async canDisplayCouponSection(campaignId) {
         const url = `${this.baseUrl}/${campaignId}`
-        const rep = axios.get(url)
+        const rep = await axios.get(url)
 
-        console.log(rep)
+        return rep.data
     }
 
     increaseNumberBeneficiariesForCampaign(campaignId) {

@@ -18,7 +18,7 @@ class App extends React.Component {
     }
 
     onToggle = (active) => {
-        const { id: campaign_id, token } = this.state.coupon
+        const { id: campaignId, token } = this.state.campaign
 
         // You need to set the authorization-bearer
         api.couponsServer.setToken(token)
@@ -26,15 +26,15 @@ class App extends React.Component {
         if (active) {
             // Increasing the number of current beneficiaries
             return api.couponsServer.increaseNumberBeneficiariesForCampaign(
-                campaign_id
+                campaignId
             )
         }
 
         // Decreasing the number of current beneficiaries
-        api.couponsServer.decreaseNumberBeneficiariesForCampaign(campaign_id)
+        api.couponsServer.decreaseNumberBeneficiariesForCampaign(campaignId)
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const campaignId = 'cc_regerg54546' // I suppose that you have this information
 
         // Checking if a coupon campaign exists in db for a specific item
@@ -46,7 +46,10 @@ class App extends React.Component {
         }
 
         // Querying the server to know whether or not we can display the coupon section
-        const rep = api.couponsServer.canDisplayCouponSection(campaignId)
+        const rep = await api.couponsServer.canDisplayCouponSection(campaignId)
+
+        console.log('test reponse')
+        console.log(rep)
 
         if (rep.display) {
             const campaign = {
@@ -62,8 +65,11 @@ class App extends React.Component {
                 brand: {
                     name: 'Galbani'
                 },
+                coupon_val: 50,
                 currency: 'eur',
-                coupon_val: 50
+                active: true,
+                token:
+                    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjY19pZCI6ImNjX3JlZ2VyZzU0NTQ2In0.aWr1ghK6P_0GgW17WXKzcQh-reKlsX0J183W3m9BjI0'
             }
 
             // This property is used to determine the state of the toggle
@@ -95,24 +101,6 @@ class App extends React.Component {
 //     const [items, setItems] = useState(null)
 //     useEffect(() => {
 //         const itemsS = {
-//             cc_regerg54546: {
-//                 id: 'cc_regerg54546',
-//                 product: {
-//                     id: 'prod_kfeezjfehg',
-//                     name: 'Mozzarella',
-//                     receipt_name: 'RAVIOLES DU DAUPHI',
-//                     image:
-//                         'https://cdn.monoprix.fr/cdn-cgi/image/width=580,quality=75,format=auto,metadata=none/assets/images/grocery/3032567/580x580.jpg'
-//                 },
-//                 brand: {
-//                     name: 'Galbani'
-//                 },
-//                 coupon_val: 50,
-//                 currency: 'eur',
-//                 active: true,
-//                 token:
-//                     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjY19pZCI6ImNjX3JlZ2VyZzU0NTQ2In0.aWr1ghK6P_0GgW17WXKzcQh-reKlsX0J183W3m9BjI0'
-//             },
 //             cc_grzgre4545454: {
 //                 id: 'cc_grzgre4545454',
 //                 product: {

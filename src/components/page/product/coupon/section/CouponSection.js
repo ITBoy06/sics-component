@@ -37,6 +37,9 @@ class CouponSection extends React.Component {
 
         // Updating state
         this.setState({ active: status })
+
+        // Notifying parent
+        this.props.onToggle(status)
     }
 
     render() {
