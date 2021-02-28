@@ -8,7 +8,8 @@ class App extends React.Component {
         super(props)
 
         this.state = {
-            coupon: {}
+            fetchingData: true,
+            campaign: {}
         }
     }
 
@@ -20,27 +21,27 @@ class App extends React.Component {
         const { id: campaign_id, token } = this.state.coupon
 
         // You need to set the authorization-bearer
-        api.couponServer.setToken(token)
+        api.couponsServer.setToken(token)
 
         if (active) {
             // Increasing the number of current beneficiaries
-            return api.couponServer.increaseNumberBeneficiariesForCampaign(
+            return api.couponsServer.increaseNumberBeneficiariesForCampaign(
                 campaign_id
             )
         }
 
         // Decreasing the number of current beneficiaries
-        api.couponServer.decreaseNumberBeneficiariesForCampaign(campaign_id)
+        api.couponsServer.decreaseNumberBeneficiariesForCampaign(campaign_id)
     }
 
     componentDidMount() {
         const campaignId = 'cc_regerg54546' // I suppose that you have this information
 
         // Checking if a coupon campaign exists in db for a specific item
-        const couponCampaign = storage.checkCouponCampaignExistence(campaignId)
+        const campaign = storage.checkCampaignExistence(campaignId)
 
-        if (couponCampaign !== null) {
-            this.setState({ coupon: couponCampaign })
+        if (campaign !== null) {
+            this.setState({ campaign })
             return
         }
 
@@ -48,7 +49,7 @@ class App extends React.Component {
         const rep = api.couponsServer.canDisplayCouponSection(campaignId)
 
         if (rep.display) {
-            const coupon = {
+            const campaign = {
                 // I suppose that you are able to construct this kind of object by your own
                 id: 'cc_regerg54546',
                 product: {
@@ -66,23 +67,25 @@ class App extends React.Component {
             }
 
             // This property is used to determine the state of the toggle
-            coupon.active = true
+            campaign.active = true
 
             // This is a mandatory object for lots of communications with our different servers
-            coupon.token = rep.token
+            campaign.token = rep.token
 
-            this.setState({ coupon })
+            this.setState({ campaign })
         }
     }
 
     render() {
-        if (Object.keys(this.state.coupon).length === 0) return <Spinner />
+        if (this.fetchingData) return <Spinner />
+
+        if (Object.keys(this.state.campaign).length === 0) return null
 
         return (
             <CouponSection
                 onToggle={this.onToggle}
                 onButtonClicked={this.onButtonClicked}
-                coupon={this.state.coupon}
+                campaign={this.state.campaign}
             />
         )
     }
@@ -132,7 +135,7 @@ class App extends React.Component {
 //
 //         setItems(itemsS)
 //
-//         window.localStorage.setItem('sics-items', JSON.stringify(itemsS))
+//         window.localStorage.setItem('sics-campaigns', JSON.stringify(itemsS))
 //     }, [])
 //
 //     if (!items) return null

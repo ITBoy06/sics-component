@@ -14,40 +14,35 @@ import Toggle from '../../../../generic/toggle/Toggle'
 class CouponSection extends React.Component {
     constructor(props) {
         super(props)
-        console.log('test proops')
-        console.log(props)
+
         this.state = {
-            actif: true
+            active: this.props.campaign.active
         }
         this.componentDidMount = this.componentDidMount.bind(this)
         this.couponActivationChange = this.couponActivationChange.bind(this)
     }
 
     componentDidMount() {
-        const { coupon } = this.props
+        const { campaign } = this.props
 
-        storage.getCouponsFromStorage()
-
-        storage.addCouponInStorage(coupon.id, coupon)
+        // Adding coupon campaign in storage
+        storage.addCampaignInStorage(campaign.id, campaign)
     }
 
     couponActivationChange(status) {
-        const { coupon } = this.props
+        const { campaign } = this.props
 
-        this.setState({ actif: status })
-        this.props.onToggle(status)
+        // Saving changes in storage
+        storage.updateCampaignObject(campaign.id, 'active', status)
 
-        if (status) {
-            storage.addCouponInStorage(coupon.id, coupon)
-        } else {
-            storage.removeCouponFromStorage(coupon.id)
-        }
+        // Updating state
+        this.setState({ active: status })
     }
 
     render() {
-        const { actif } = this.state
-        const { coupon } = this.props
-        const somme = coupon.coupon_val / 100
+        const { active } = this.state
+        const { campaign } = this.props
+        const somme = campaign.coupon_val / 100
 
         return (
             <div className={styles.container}>
@@ -62,13 +57,13 @@ class CouponSection extends React.Component {
                     </div>
                     <div className={styles.toggleZone}>
                         <Toggle
-                            defaultChecked={this.state.actif}
+                            defaultChecked={active}
                             onStatusChanged={this.couponActivationChange}
                         />
                         <span>Coupon {somme.toPrecision(2)}€</span>
                     </div>
                 </div>
-                {actif ? (
+                {active ? (
                     <Button onClick={this.props.onButtonClicked}>
                         Me faire rembourser {somme.toPrecision(2)}€
                     </Button>
@@ -81,7 +76,7 @@ class CouponSection extends React.Component {
 CouponSection.propTypes = {
     onToggle: PropTypes.func.isRequired,
     onButtonClicked: PropTypes.func.isRequired,
-    coupon: PropTypes.object.isRequired
+    campaign: PropTypes.object.isRequired
 }
 
 export default CouponSection
