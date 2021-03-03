@@ -8,40 +8,34 @@ class Server {
     setToken(token) {
         this.authToken = token
     }
+
+    setBaseUrl(url) {
+        this.baseUrl = url
+    }
 }
 
 class CouponsServer extends Server {
-    constructor() {
-        super()
-        this.baseUrl = 'https://coupons.eu.ngrok.io/api/campaign'
-    }
-
     async canDisplayCouponSection(campaignId) {
-        const url = `${this.baseUrl}/${campaignId}`
+        const url = `${this.baseUrl}/api/campaign${campaignId}`
         const rep = await axios.get(url)
 
         return rep.data
     }
 
     increaseNumberBeneficiariesForCampaign(campaignId) {
-        const url = `${this.baseUrl}/${campaignId}/beneficiaries/?action=add`
+        const url = `${this.baseUrl}/api/campaign${campaignId}/beneficiaries/?action=add`
 
         axios.patch(url, null, { headers: { Authorization: this.authToken } })
     }
 
     decreaseNumberBeneficiariesForCampaign(campaignId) {
-        const url = `${this.baseUrl}/${campaignId}/beneficiaries/?action=withdraw`
+        const url = `${this.baseUrl}/api/campaign/${campaignId}/beneficiaries/?action=withdraw`
 
         axios.patch(url, null, { headers: { Authorization: this.authToken } })
     }
 }
 
 class OcrServer extends Server {
-    constructor() {
-        super()
-        this.baseUrl = 'https://ocr.eu.ngrok.io/api/ocr/'
-    }
-
     async getIdentifiedItemsFromServer(items) {
         // eslint-disable-next-line no-undef
         const bodyFormData = new FormData()
@@ -62,7 +56,7 @@ class OcrServer extends Server {
 
         // Then we will query the server to retrieve identified items
         const rep = await axios
-            .post(this.base_url, bodyFormData, {
+            .post(this.baseUrl, bodyFormData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -78,24 +72,43 @@ class OcrServer extends Server {
 }
 
 class ReceiptsServer extends Server {
-    constructor() {
-        super()
-        this.baseUrl = 'https://receipt.ngrok.io/api/receipt'
-    }
-
     async isReceiptAlreadyScanned(receiptId, token) {
-        const rep = await axios.get(`${this.baseUrl}/rcpt_${receiptId}`, {
-            headers: {
-                Authorization: token
+        const rep = await axios.get(
+            `${this.baseUrl}/api/receipt/rcpt_${receiptId}`,
+            {
+                headers: {
+                    Authorization: token
+                }
             }
-        })
+        )
 
         return rep.data.alreadyScanned
+    }
+}
+
+class StripeServer extends Server {
+    async receivePaymentIntent(campaignItems) {
+        const jsonObject = JSON.stringify({
+            campaign_items: campaignItems
+        })
+        const rep = await axios.post(
+            `${this.baseUrl}/api/reimbursement/client`,
+            jsonObject,
+            {
+                headers: {
+                    Authorization: this.authToken,
+                    'Content-Type': 'application/json'
+                }
+            }
+        )
+
+        return rep.data.client_secret
     }
 }
 
 export const api = {
     couponsServer: new CouponsServer(),
     ocrServer: new OcrServer(),
-    receiptsServer: new ReceiptsServer()
+    receiptsServer: new ReceiptsServer(),
+    stripeServer: new StripeServer()
 }
